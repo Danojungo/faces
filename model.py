@@ -9,7 +9,8 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.callbacks import EarlyStopping
 
 ###### constants ######
-path_to_model = "/Users/dan/ITC/jungo/model"
+path_to_model = "/home/dano/clearml_poc/faces/model"
+path_to_tensorboard = "/home/dano/clearml_poc/faces/model/tensorboard"
 
 
 class My_Cnn:
@@ -120,12 +121,13 @@ class My_Cnn:
                                        patience=patience,
                                        restore_best_weights=True)
         noise_update_callback = PreprocessCallback(self.debug_prints)
-
+        tensorboard_cb = tf.keras.callbacks.TensorBoard(log_dir=path_to_tensorboard, write_graph=True,
+                                                        write_images=False, update_freq="epoch")
         # training
         self.history = self.model.fit(train_set,
                                       validation_data=val_set,
                                       epochs=epochs,
-                                      callbacks=[early_callback, noise_update_callback]
+                                      callbacks=[early_callback, noise_update_callback, tensorboard_cb]
                                       )
 
         # in stopped epoch minus the patience indicates the selected epoch weights,
