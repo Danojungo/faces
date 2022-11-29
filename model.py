@@ -20,7 +20,7 @@ class My_Cnn:
     choose loss_function: 'binary' , 'categorical', 'sparse'
     choose logits: True or False
     """
-    def __init__(self, img_dim, loss_function='categorical', logits=True, loaded_model=0, debug_printing=0):
+    def __init__(self, img_dim, loss_function='categorical', logits=True, loaded_model=0, debug_printing=0, dense=64):
         # get shape of image for model input
         self.img_height = img_dim[0]
         self.img_width = img_dim[1]
@@ -36,6 +36,7 @@ class My_Cnn:
         # place holder for before model is trained
         self.history = None
         self.trained_epoch = None
+        self.last_dense = dense
 
     def create_model(self):
         """
@@ -66,7 +67,7 @@ class My_Cnn:
             layers.Flatten(),
             layers.Dense(128, activation='relu'),
             layers.Dropout(0.25),
-            layers.Dense(64, activation='relu'),
+            layers.Dense(self.last_dense, activation='relu'),
             layers.Dropout(0.25),
         ])
         if (self.loss_function == 'binary') and self.logits:
