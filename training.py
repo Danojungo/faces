@@ -9,7 +9,7 @@ import helper_functions as hf
 path_to_images = "/home/dano/clearml_poc/face_validator_data"
 image_dims = [50, 50, 1]
 
-task = Task.init(project_name="face_validatior", task_name="conda task")
+task = Task.init(project_name="face_validatior", task_name="conda the last time")
 params_dictionary = {'epochs': 10, 'lr': 0.0005, 'patience': 5}
 task.connect(params_dictionary)
 
