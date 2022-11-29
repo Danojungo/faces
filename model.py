@@ -28,6 +28,7 @@ class My_Cnn:
         self.debug_prints = debug_printing
         self.loss_function = loss_function
         self.logits = logits
+        self.last_dense = dense
         # check if model is loaded or new.
         if loaded_model:
             self.model = self.load_model()
@@ -36,7 +37,7 @@ class My_Cnn:
         # place holder for before model is trained
         self.history = None
         self.trained_epoch = None
-        self.last_dense = dense
+
 
     def create_model(self):
         """
