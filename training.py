@@ -47,6 +47,7 @@ def main():
     #     cnn.save_model()
     output_folder = os.path.join('/home/dano/clearml_poc', 'saveexaple')
     model_store = ModelCheckpoint(filepath=os.path.join(output_folder, 'weight.hdf5'))
+    task.update_output_model('/home/dano/clearml_poc')
     print('finished')
 
 
