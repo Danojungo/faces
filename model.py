@@ -9,8 +9,9 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.callbacks import EarlyStopping
 
 ###### constants ######
-path_to_model = "/home/dano/clearml_poc/faces/model"
+path_to_model = "/home/dano/clearml_poc/faces/model/"
 path_to_tensorboard = "/home/dano/clearml_poc/faces/model/tensorboard"
+path_to_checkpoints = '/home/dano/clearml_poc/saves'
 
 
 class My_Cnn:
@@ -166,7 +167,7 @@ class My_Cnn:
         inf_time_avg, inf_time_std = self.get_inference_time(img, loop_count)
         print(f"Inference time avg for {inf_time_avg:.05f}ms +/- {inf_time_std:.05f}ms")
 
-    def save_model(self):
+    def save_model(self, name='default'):
         """
         save the model to dir
         :return: None
@@ -174,7 +175,7 @@ class My_Cnn:
         if not os.path.exists(path_to_model):
             print('error file path to model does not exist')
             exit(1)
-        self.model.save(path_to_model)
+        self.model.save(path_to_model + name, save_format='h5')
 
     @staticmethod
     def load_model():
