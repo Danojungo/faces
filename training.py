@@ -1,8 +1,10 @@
 ###### imports ######
 import dataset
 import model
-from clearml import Task, Logger
+from clearml import Task, Logger, OutputModel
+from tensorflow.keras.callbacks import ModelCheckpoint
 import os
+import tempfile
 import helper_functions as hf
 
 ###### constants ######
@@ -12,6 +14,8 @@ image_dims = [50, 50, 1]
 task = Task.init(project_name="face_validatior", task_name="logging parameters first")
 params_dictionary = {'epochs': 10, 'lr': 0.0005, 'patience': 5, 'last_dense': 64, 'batch_size': 16}
 task.connect(params_dictionary)
+output_model = OutputModel(task=task, framework="tensorflow")
+output_model.set_upload_destination(uri='/home/dano/clearml_poc')
 
 
 def main():
@@ -41,6 +45,8 @@ def main():
     # user_save = input("save the model? ")
     # if user_save == 'y':
     #     cnn.save_model()
+    output_folder = os.path.join('/home/dano/clearml_poc', 'saveexaple')
+    model_store = ModelCheckpoint(filepath=os.path.join(output_folder, 'weight.hdf5'))
     print('finished')
 
 
