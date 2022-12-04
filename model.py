@@ -9,7 +9,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.callbacks import EarlyStopping
 
 ###### constants ######
-path_to_model = os.path.expanduser('~/clearml_poc/faces/model_1')
+path_to_model = os.path.expanduser('~/clearml_poc/faces/model/')
 path_to_tensorboard = os.path.expanduser('~/clearml_poc/faces/model/tensorboard')
 path_to_checkpoints = os.path.expanduser('~/clearml_poc/saves')
 

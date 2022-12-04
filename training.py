@@ -49,7 +49,7 @@ def main():
     # user_save = input("save the model? ")
     # if user_save == 'y':
     cnn.save_model(params_dictionary['model_name'])
-    output_model.update_weights(weights_filename='model_2', auto_delete_file=False)
+    output_model.update_weights(weights_filename='model', auto_delete_file=False)
     # output_folder = os.path.join('/home/dano/clearml_poc/saves', 'saveexaple')
     # model_store = ModelCheckpoint(filepath=os.path.join(output_folder, 'weight.hdf5'))
     # task.upload_artifact('/home/dano/clearml_poc/saves', name='model')
