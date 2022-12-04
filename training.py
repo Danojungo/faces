@@ -12,9 +12,10 @@ import helper_functions as hf
 path_to_images = os.path.expanduser('~/clearml_poc/face_validator_data')
 image_dims = [50, 50, 1]
 path_to_checkpoints = os.path.expanduser('~/clearml_poc/saves')
-path_to_model = os.path.expanduser('~/clearml_poc/faces/model')
+path_to_model_dir = os.path.expanduser('~/clearml_poc/faces/model/')
+path_to_model = os.path.expanduser('~/clearml_poc/saves/model.h5')
 params_dictionary = {'epochs': 1, 'lr': 0.0005, 'patience': 5, 'last_dense': 64,
-                     'batch_size': 16, 'model_name': 'model'}
+                     'batch_size': 16, 'model_name': 'model.h5'}
 task = Task.init(project_name="face_validatior", task_name="testing agent data on agent")
 
 task.connect(params_dictionary)
@@ -50,7 +51,7 @@ def main():
     # if user_save == 'y':
     cnn.save_model(params_dictionary['model_name'])
     output_model.update_weights(weights_filename='model', auto_delete_file=False)
-    # output_folder = os.path.join('/home/dano/clearml_poc/saves', 'saveexaple')
+    # output_folder = os.path.join('/home/dano/clearml_poc/saves', 'save_example')
     # model_store = ModelCheckpoint(filepath=os.path.join(output_folder, 'weight.hdf5'))
     # task.upload_artifact('/home/dano/clearml_poc/saves', name='model')
     print('finished')
