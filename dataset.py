@@ -93,7 +93,7 @@ class Dataset:
 
 def main():
     image_dims = [50, 50, 1]
-    ds = Dataset("/home/dano/clearml_poc/face_validator_data", image_dims)
+    ds = Dataset(os.path.expanduser('~/clearml_poc/face_validator_data'), image_dims)
     print(f"Train DS{ds.train_set}")
     print(f"Val DS{ds.val_set}")
     print(f"Test DS{ds.test_set}")

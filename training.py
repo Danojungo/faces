@@ -9,18 +9,17 @@ import helper_functions as hf
 
 
 ###### constants ######
-path_to_images = "/home/dano/clearml_poc/face_validator_data"
+path_to_images = os.path.expanduser('~/clearml_poc/face_validator_data')
 image_dims = [50, 50, 1]
-path_to_checkpoints = '/home/dano/clearml_poc/saves'
-path_to_model = "/home/dano/clearml_poc/faces/model"
+path_to_checkpoints = os.path.expanduser('~/clearml_poc/saves')
+path_to_model = os.path.expanduser('~/clearml_poc/faces/model')
 params_dictionary = {'epochs': 1, 'lr': 0.0005, 'patience': 5, 'last_dense': 64,
                      'batch_size': 16, 'model_name': 'model'}
-
-task = Task.init(project_name="face_validatior", task_name="logging parameters first")
+task = Task.init(project_name="face_validatior", task_name="testing agent data on agent")
 
 task.connect(params_dictionary)
 output_model = OutputModel(task=task, framework="tensorflow")
-output_model.set_upload_destination(uri='/home/dano/clearml_poc')
+output_model.set_upload_destination(uri=path_to_checkpoints)
 
 
 def main():
@@ -38,10 +37,10 @@ def main():
     history = cnn.history
     print('Test score:', score[0])
     print('Test accuracy:', score[1])
-    # Logger.current_logger().report_scalar(title='evaluate', series='score',
-    #                                       value=score[0], iteration=params_dictionary['epochs'])
-    # Logger.current_logger().report_scalar(title='evaluate', series='accuracy',
-    #                                       value=score[1], iteration=params_dictionary['epochs'])
+    Logger.current_logger().report_scalar(title='evaluate', series='score',
+                                          value=score[0], iteration=params_dictionary['epochs'])
+    Logger.current_logger().report_scalar(title='evaluate', series='accuracy',
+                                          value=score[1], iteration=params_dictionary['epochs'])
     # inference time from dataset
     # cnn.print_inference_time(data.test_set, 1000)
     # print accuracy and loss plots
@@ -50,6 +49,7 @@ def main():
     # user_save = input("save the model? ")
     # if user_save == 'y':
     cnn.save_model(params_dictionary['model_name'])
+    output_model.update_weights(weights_filename='model', auto_delete_file=False)
     # output_folder = os.path.join('/home/dano/clearml_poc/saves', 'saveexaple')
     # model_store = ModelCheckpoint(filepath=os.path.join(output_folder, 'weight.hdf5'))
     # task.upload_artifact('/home/dano/clearml_poc/saves', name='model')
